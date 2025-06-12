@@ -1,14 +1,9 @@
 <!-- components/message/MessageItem.vue -->
 <template>
-  <div :class="['message-item', isMine ? 'mine' : 'theirs']">
-    <v-avatar v-if="!isMine" size="24" class="mr-2">
-      <v-img :src="message.sender.avatarUrl" @error="imgErr = true" v-if="!imgErr" />
-      <v-icon v-else>mdi-account</v-icon>
-    </v-avatar>
-
+  <div :class="['message-item', props.isMine ? 'mine' : 'theirs']">
     <div class="message-bubble">
-      <div class="text-body-2">{{ message.content }}</div>
-      <div class="timestamp">{{ new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }}</div>
+      <div class="text-body-2">{{ props.message.content }}</div>
+      <div class="timestamp">{{ new Date(props.message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }}</div>
     </div>
   </div>
 </template>
@@ -17,10 +12,12 @@
 import { ref } from 'vue'
 import type { Message } from '@/types/chat'
 
-defineProps<{
+const props = defineProps<{
   message: Message
   isMine: boolean
 }>()
+
+console.log('MessageItem', { senderId: props.message.sender.id, isMine: props.isMine })
 
 const imgErr = ref(false)
 </script>
@@ -33,11 +30,11 @@ const imgErr = ref(false)
 }
 .mine {
   align-self: flex-end;
-  flex-direction: row-reverse;
   text-align: right;
 }
 .theirs {
   align-self: flex-start;
+  text-align: left;
 }
 .message-bubble {
   background-color: #f0f0f0;

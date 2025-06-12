@@ -1,7 +1,6 @@
-
 <template>
   <!-- @vue-ignore -->
-  <v-list-item @click="$emit('selectChat', chat._id ? chat._id : chat.id)" class="chat-item" clickable>
+  <v-list-item @click="$emit('selectChat', chat._id ? chat._id : chat.id, username)" class="chat-item" clickable>
     <v-row align="center" no-gutters class="w-100">
       <v-col cols="3" class="d-flex justify-center">
         <v-avatar size="40">
@@ -31,4 +30,8 @@ const props = defineProps<{ chat: Chat }>()
 
 // @ts-ignore
 const username = props.chat.partner?.username || props.chat.members?.[0]?.username  || props.chat.username
+
+const emit = defineEmits<{
+  (e: 'selectChat', chatId: string, username: string): void
+}>();
 </script>

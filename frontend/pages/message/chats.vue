@@ -3,7 +3,7 @@
     <v-row no-gutters class="flex-grow-1 fill-height">
       <!-- Левая колонка: список чатов -->
       <v-col cols="4" class="pa-2 left-panel fill-height">
-        <ChatList @selectChat="activeChatId = $event" class="fill-height" />
+        <ChatList @selectChat="handleChatSelect" class="fill-height" />
       </v-col>
 
       <!-- Правая колонка: диалог -->
@@ -11,6 +11,7 @@
         <DialogBox
           v-if="activeChatId"
           :chat-id="activeChatId"
+          :companion-name="activeChatUsername"
           class="fill-height"
         />
 
@@ -31,6 +32,12 @@ import ChatList from '@/components/message/ChatList.vue'
 import DialogBox from '@/components/message/DialogBox.vue'
 
 const activeChatId = ref<string | null>(null)
+const activeChatUsername = ref<string>('')
+
+function handleChatSelect(data: { chatId: string, username: string }) {
+  activeChatId.value = data.chatId
+  activeChatUsername.value = data.username
+}
 </script>
 
 <style scoped>
