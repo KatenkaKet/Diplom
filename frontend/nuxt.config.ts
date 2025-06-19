@@ -10,11 +10,6 @@ export default defineNuxtConfig({
     transpile: ['vuetify'],
   },
   vite: {
-    plugins: [vuetify()], 
+    plugins: [vuetify()],
   },
-  runtimeConfig: {
-    public: {
-      courseServiceUrl: process.env.COURSE_SERVICE_URL || 'http://localhost:8080/api'
-    }
-  }
 })
